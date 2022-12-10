@@ -1,5 +1,5 @@
 from django.urls import reverse
-from accounts.models import User
+from ..models import UserDetail
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import smart_bytes
@@ -21,7 +21,7 @@ class PasswordReset:
 
     @classmethod
     def send_password_reset_email(cls, redirect_url, current_site, user_id):
-        user = User.objects.get(pk=user_id)
+        user = UserDetail.objects.get(pk=user_id)
         uidb64 = urlsafe_base64_encode(smart_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)
 
